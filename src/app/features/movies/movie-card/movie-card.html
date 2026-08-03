@@ -1,0 +1,28 @@
+<a
+    [routerLink]="['/movies', movie().id]"
+    class="block"
+>
+
+  <div class="bg-zinc-900 rounded-xl overflow-hidden shadow-lg">
+  <img [src]="movie().imageUrl" [alt]="movie().title" class="w-full h-80 object-cover" />
+
+  <div class="p-4">
+    <h2 class="text-white text-xl font-bold">
+      {{ movie().title }}
+    </h2>
+
+    <p class="text-gray-400 text-sm mt-2">
+      {{ movie().genre }}
+    </p>
+
+    <div class="flex justify-between mt-3 text-sm">
+      <span class="text-yellow-400"> ⭐ {{ movie().rating }} </span>
+
+      <span class="text-gray-400">
+        {{ movie().releaseYear }}
+      </span>
+    </div>
+  </div>
+  </div>
+
+</a>

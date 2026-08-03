@@ -1,1 +1,9 @@
-<p>favorites works!</p>
+<section class="p-8 bg-zinc-950 min-h-screen">
+  <h1 class="text-3xl text-white font-bold mb-8">Mis Favoritos ❤️</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    @for (movie of movies(); track movie.id) {
+      <app-movie-card [movie]="movie"> </app-movie-card>
+    }
+  </div>
+</section>

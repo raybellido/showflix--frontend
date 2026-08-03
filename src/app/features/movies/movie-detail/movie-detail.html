@@ -1,0 +1,59 @@
+@if (movie()) {
+  <div class="min-h-screen bg-zinc-950 text-white">
+    <div class="relative">
+      <!-- Imagen de fondo -->
+      <img
+        [src]="movie()!.imageUrl"
+        [alt]="movie()!.title"
+        class="w-full h-[500px] object-cover opacity-40"
+      />
+
+      <!-- Degradado -->
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent"
+      ></div>
+
+      <!-- Información -->
+      <div class="absolute bottom-0 left-0 p-8 max-w-3xl">
+        <h1 class="text-5xl font-bold">
+          {{ movie()!.title }}
+        </h1>
+
+        <div class="flex gap-4 mt-4 text-zinc-300">
+          <span> ⭐ {{ movie()!.rating }} </span>
+
+          <span>
+            {{ movie()!.genre }}
+          </span>
+
+          <span>
+            {{ movie()!.releaseYear }}
+          </span>
+
+          <span> {{ movie()!.duration }} min </span>
+        </div>
+
+        <p class="mt-6 text-lg text-zinc-300">
+          {{ movie()!.description }}
+        </p>
+
+        <div class="flex gap-4 mt-6">
+          <a
+            [href]="movie()!.trailerUrl"
+            target="_blank"
+            class="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-zinc-200"
+          >
+            ▶ Ver trailer
+          </a>
+
+          <button
+            (click)="addFavorite()"
+            class="bg-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-red-700"
+          >
+            ❤️ Favoritos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

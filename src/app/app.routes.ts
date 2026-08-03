@@ -4,28 +4,39 @@ import { MainLayout } from './layouts/main-layout/main-layout';
 import { Login } from './features/auth/login/login';
 import { Favorites } from './features/favorites/favorites/favorites';
 import { MovieList } from './features/movies/movie-list/movie-list';
+import { MovieDetail } from './features/movies/movie-detail/movie-detail';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: Login,
+  },
+
   {
     path: '',
     component: MainLayout,
     children: [
       {
         path: '',
-        component: Home
+        component: Home,
       },
+
       {
         path: 'movies',
-        component: MovieList
+        component: MovieList,
       },
+
+      {
+            path: 'movies/:id',
+            component: MovieDetail
+        },
+
       {
         path: 'favorites',
-        component: Favorites
+        component: Favorites,
+        canActivate: [authGuard]
       },
-      {
-        path: 'login',
-        component: Login
-      }
-    ]
-  }
+    ],
+  },
 ];

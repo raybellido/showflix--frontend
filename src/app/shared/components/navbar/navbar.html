@@ -8,17 +8,20 @@
 
       <div class="flex gap-8">
         <a routerLink="/" class="hover:text-blue-500 transition"> Inicio </a>
-
         <a routerLink="/movies" class="hover:text-blue-500 transition"> Películas </a>
-
-        <a routerLink="/favorites" class="hover:text-blue-500 transition"> Favoritos </a>
+        
+        @if (isAuthenticated()) {
+          <a routerLink="/favorites" class="hover:text-blue-500 transition"> Favoritos </a>
+        }
       </div>
 
       <!-- Login -->
 
-      <a routerLink="/login" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-800 transition">
-        Iniciar sesión
-      </a>
+      @if (isAuthenticated()) {
+        <button (click)="logout()" class="bg-blue-600 px-4 py-2 rounded">Cerrar sesión</button>
+      } @else {
+        <a routerLink="/login" class="bg-blue-600 px-4 py-2 rounded"> Iniciar sesión </a>
+      }
     </div>
   </div>
 </nav>

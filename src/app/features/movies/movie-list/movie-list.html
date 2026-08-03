@@ -1,1 +1,11 @@
-<p>movie-list works!</p>
+<h1 class="text-3xl font-bold text-blue-600 mb-6">Películas</h1>
+
+<div class="grid grid-cols-4 gap-6">
+    
+   @for(movie of movies(); track movie.id) {
+   <app-movie-card [movie]="movie"/>
+}
+        />
+
+    
+</div>
