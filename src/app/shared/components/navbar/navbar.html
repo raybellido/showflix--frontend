@@ -9,19 +9,35 @@
       <div class="flex gap-8">
         <a routerLink="/" class="hover:text-blue-500 transition"> Inicio </a>
         <a routerLink="/movies" class="hover:text-blue-500 transition"> Películas </a>
-        
+
         @if (isAuthenticated()) {
           <a routerLink="/favorites" class="hover:text-blue-500 transition"> Favoritos </a>
         }
       </div>
 
-      <!-- Login -->
+      
+      <div class="flex items-center gap-4">
+        <input
+          #searchInput
+          type="text"
+          placeholder="Buscar películas..."
+          class="px-4 py-2 rounded bg-zinc-800 text-white border border-zinc-700 focus:outline-none focus:border-blue-500"
+          (input)="onSearch(searchInput.value)"
+        />
 
-      @if (isAuthenticated()) {
-        <button (click)="logout()" class="bg-blue-600 px-4 py-2 rounded">Cerrar sesión</button>
-      } @else {
-        <a routerLink="/login" class="bg-blue-600 px-4 py-2 rounded"> Iniciar sesión </a>
-      }
+        @if (isAuthenticated()) {
+          <button
+            (click)="logout()"
+            class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-800 transition"
+          >
+            Cerrar sesión
+          </button>
+        } @else {
+          <a routerLink="/login" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-800 transition">
+            Iniciar sesión
+          </a>
+        }
+      </div>
     </div>
   </div>
 </nav>
