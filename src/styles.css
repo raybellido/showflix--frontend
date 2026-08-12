@@ -1,3 +1,77 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+@theme {
+  --color-theater: #0b0b0d;
+  --color-ticket: #151519;
+  --color-halo: #2e2e36;
+  --color-grain: #8a8794;
+  --color-screen: #f2efe9;
+  --color-amber: #e8a33d;
+  --color-amber-soft: #f0ba62;
+
+  --font-display: 'Archivo Black', 'Arial Black', sans-serif;
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-theater);
+  color: var(--color-screen);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-amber);
+  color: var(--color-theater);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* Film sprocket perforations */
+.film-strip {
+  height: 8px;
+  background-image: radial-gradient(
+    circle 2px at 10px 4px,
+    rgba(242, 239, 233, 0.35) 60%,
+    transparent 61%
+  );
+  background-size: 32px 8px;
+  background-repeat: repeat-x;
+}
+
+/* Warm projector glow behind titles */
+.projector-glow {
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 42%,
+    rgba(232, 163, 61, 0.16),
+    transparent 72%
+  );
+}
+
+/* Scrolling marquee ticker */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}

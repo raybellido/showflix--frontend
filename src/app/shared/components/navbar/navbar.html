@@ -1,43 +1,122 @@
-<nav class="bg-black text-white shadow-md">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a routerLink="/" class="text-3xl font-bold text-blue-600"> SHOWFLIX </a>
+<nav class="sticky top-0 z-50 border-b border-halo/60 bg-theater/85 backdrop-blur-md">
+  <div class="film-strip" aria-hidden="true"></div>
 
-      <!-- Menú -->
+  <div class="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
+    <!-- Wordmark -->
+    <a routerLink="/" class="font-display text-2xl tracking-tight select-none">
+      <span class="text-screen">GooD</span><span class="text-amber">Movies</span>
+    </a>
 
-      <div class="flex gap-8">
-        <a routerLink="/" class="hover:text-blue-500 transition"> Inicio </a>
-        <a routerLink="/movies" class="hover:text-blue-500 transition"> Películas </a>
+    <!-- Desktop links -->
+    <div class="ml-4 hidden items-center gap-8 md:flex">
+      <a
+        routerLink="/"
+        routerLinkActive="nav-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link font-mono text-sm tracking-widest text-grain transition-colors"
+      >
+        INICIO
+      </a>
+      <a
+        routerLink="/movies"
+        routerLinkActive="nav-active"
+        class="nav-link font-mono text-sm tracking-widest text-grain transition-colors"
+      >
+        PELÍCULAS
+      </a>
+      @if (isAuthenticated()) {
+        <a
+          routerLink="/favorites"
+          routerLinkActive="nav-active"
+          class="nav-link font-mono text-sm tracking-widest text-grain transition-colors"
+        >
+          FAVORITOS
+        </a>
+      }
+    </div>
 
+    <div class="ml-auto flex items-center gap-3">
+      <input
+        #searchInput
+        type="text"
+        placeholder="Buscar película…"
+        class="w-36 rounded-none border border-halo/60 bg-ticket px-3 py-2 font-mono text-xs text-screen placeholder:text-grain/70 focus:border-amber focus:outline-none sm:w-52 lg:w-64"
+        (input)="onSearch(searchInput.value)"
+        aria-label="Buscar película"
+      />
+
+      @if (isAuthenticated()) {
+        <button
+          (click)="logout()"
+          class="hidden rounded-none border border-halo/60 px-4 py-2 font-mono text-xs tracking-widest text-screen transition-colors hover:border-amber hover:text-amber sm:block"
+        >
+          SALIR
+        </button>
+      } @else {
+        <a
+          routerLink="/login"
+          class="hidden rounded-none bg-amber px-4 py-2 font-mono text-xs font-bold tracking-widest text-theater transition-colors hover:bg-amber-soft sm:block"
+        >
+          ENTRAR
+        </a>
+      }
+
+      <!-- Mobile menu toggle -->
+      <button
+        (click)="menuOpen.set(!menuOpen())"
+        class="flex h-10 w-10 items-center justify-center border border-halo/60 text-screen md:hidden"
+        aria-label="Abrir menú"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          @if (menuOpen()) {
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+          } @else {
+            <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+          }
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  @if (menuOpen()) {
+    <div class="border-t border-halo/60 bg-theater px-4 py-4 md:hidden">
+      <div class="flex flex-col gap-4 font-mono text-sm tracking-widest">
+        <a
+          routerLink="/"
+          routerLinkActive="nav-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="menuOpen.set(false)"
+          class="nav-link text-grain"
+        >
+          INICIO
+        </a>
+        <a
+          routerLink="/movies"
+          routerLinkActive="nav-active"
+          (click)="menuOpen.set(false)"
+          class="nav-link text-grain"
+        >
+          PELÍCULAS
+        </a>
         @if (isAuthenticated()) {
-          <a routerLink="/favorites" class="hover:text-blue-500 transition"> Favoritos </a>
-        }
-      </div>
-
-      
-      <div class="flex items-center gap-4">
-        <input
-          #searchInput
-          type="text"
-          placeholder="Buscar películas..."
-          class="px-4 py-2 rounded bg-zinc-800 text-white border border-zinc-700 focus:outline-none focus:border-blue-500"
-          (input)="onSearch(searchInput.value)"
-        />
-
-        @if (isAuthenticated()) {
-          <button
-            (click)="logout()"
-            class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-800 transition"
+          <a
+            routerLink="/favorites"
+            routerLinkActive="nav-active"
+            (click)="menuOpen.set(false)"
+            class="nav-link text-grain"
           >
-            Cerrar sesión
-          </button>
+            FAVORITOS
+          </a>
+        }
+        @if (isAuthenticated()) {
+          <button (click)="logout()" class="text-left text-grain hover:text-amber">SALIR</button>
         } @else {
-          <a routerLink="/login" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-800 transition">
-            Iniciar sesión
+          <a routerLink="/login" (click)="menuOpen.set(false)" class="text-grain hover:text-amber">
+            ENTRAR
           </a>
         }
       </div>
     </div>
-  </div>
+  }
 </nav>

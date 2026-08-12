@@ -10,4 +10,4 @@
   trailerUrl: string;
   rating: number;
 
-}
+} 

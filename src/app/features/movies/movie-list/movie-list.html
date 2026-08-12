@@ -1,8 +1,93 @@
-<h1 class="text-3xl font-bold text-blue-600 mb-6">Películas</h1>
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="font-mono text-xs tracking-[0.3em] text-amber">EL CATÁLOGO</p>
+      <h1 class="my-3 font-display text-4xl text-screen sm:text-5xl">PELÍCULAS</h1>
 
-<div class="grid grid-cols-4 gap-6">
-  @for (movie of movies(); track movie.id) {
-    <app-movie-card [movie]="movie" />
+      <select
+        [value]="sort()"
+        (change)="changeSort($event)"
+        class="bg-zinc-800 text-white px-4 py-2 rounded border border-zinc-700"
+      >
+        <option value="releaseYear,desc">Más recientes</option>
+
+        <option value="releaseYear,asc">Más antiguas</option>
+
+        <option value="rating,desc">Mejor valoradas</option>
+
+        <option value="rating,asc">Menor valoración</option>
+
+        <option value="title,asc">Título A-Z</option>
+
+        <option value="title,desc">Título Z-A</option>
+      </select>
+    </div>
+    <p class="font-mono text-xs tracking-widest text-grain">{{ totalElements() }} TÍTULOS</p>
+  </div>
+
+  <select [value]="selectedGenre() ?? ''" (change)="changeGenre($any($event.target).value)">
+    <option value="">Todos los géneros</option>
+
+    @for (genre of genres(); track genre.id) {
+      <option [value]="genre.id">
+        {{ genre.name }}
+      </option>
+    }
+  </select>
+
+  @if (movies().length > 0) {
+    <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      @for (movie of movies(); track movie.id) {
+        <app-movie-card [movie]="movie" />
+      }
+    </div>
+  } @else {
+    <div class="mt-16 border border-dashed border-halo/50 px-6 py-20 text-center">
+      <p class="font-mono text-sm tracking-[0.25em] text-grain">SIN RESULTADOS EN LA SALA</p>
+      <p class="mt-3 text-grain">No encontramos películas para esa búsqueda.</p>
+      <button
+        (click)="clearSearch()"
+        class="mt-6 rounded-none bg-amber px-6 py-3 font-mono text-xs font-bold tracking-widest text-theater transition-colors hover:bg-amber-soft"
+      >
+        LIMPIAR BÚSQUEDA
+      </button>
+    </div>
   }
-  />
-</div>
+
+  @if (totalPages() > 1) {
+    <nav
+      class="mt-12 flex flex-wrap items-center justify-center gap-2 font-mono text-sm"
+      aria-label="Paginación"
+    >
+      <button
+        (click)="changePage(currentPage() - 1)"
+        [disabled]="currentPage() === 0"
+        class="border border-halo/50 px-4 py-2 text-grain transition-colors hover:border-amber hover:text-amber disabled:opacity-30 disabled:hover:border-halo/50 disabled:hover:text-grain"
+      >
+        ← ANTERIOR
+      </button>
+
+      @for (page of getPages(); track page) {
+        <button
+          (click)="changePage(page)"
+          class="h-10 w-10 border transition-colors"
+          [class.bg-amber]="currentPage() === page"
+          [class.text-theater]="currentPage() === page"
+          [class.border-halo/50]="currentPage() !== page"
+          [class.text-screen]="currentPage() !== page"
+          [class.hover:border-amber]="currentPage() !== page"
+        >
+          {{ page + 1 }}
+        </button>
+      }
+
+      <button
+        (click)="changePage(currentPage() + 1)"
+        [disabled]="currentPage() === totalPages() - 1"
+        class="border border-halo/50 px-4 py-2 text-grain transition-colors hover:border-amber hover:text-amber disabled:opacity-30 disabled:hover:border-halo/50 disabled:hover:text-grain"
+      >
+        SIGUIENTE →
+      </button>
+    </nav>
+  }
+</section>

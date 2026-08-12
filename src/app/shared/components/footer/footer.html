@@ -1,1 +1,25 @@
-<p>footer works!</p>
+<footer class="border-t border-halo/60 bg-theater">
+  <div class="film-strip -scale-y-100" aria-hidden="true"></div>
+
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center gap-6 text-center">
+      <a routerLink="/" class="font-display text-xl tracking-tight select-none">
+        <span class="text-screen">GooD</span><span class="text-amber">MovieS</span>
+      </a>
+
+      <p class="max-w-md font-mono text-xs leading-relaxed text-grain">
+        Un catálogo de cine con luz de proyector. Explora, descubre y guarda lo que quieras ver.
+      </p>
+
+      <nav class="flex flex-wrap justify-center gap-8 font-mono text-xs tracking-widest text-grain" aria-label="Pie de página">
+        <a routerLink="/movies" class="transition-colors hover:text-amber">PELÍCULAS</a>
+        <a routerLink="/favorites" class="transition-colors hover:text-amber">FAVORITOS</a>
+        <a routerLink="/login" class="transition-colors hover:text-amber">CUENTA</a>
+      </nav>
+
+      <p class="font-mono text-[10px] tracking-widest text-grain/60">
+        © 2026 GoodMovieS · TU CINE EN CASA
+      </p>
+    </div>
+  </div>
+</footer>

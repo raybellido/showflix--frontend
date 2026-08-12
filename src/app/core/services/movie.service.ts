@@ -13,11 +13,18 @@ export class MovieService {
 
   private api = `${environment.apiUrl}/movies`;
 
-  getAll(page = 0, size = 8): Observable<PageResponse<Movie>> {
+  getAll(
+    page = 0,
+    size = 8,
+    sort = 'releaseYear,desc',
+    genreId?: number,
+  ): Observable<PageResponse<Movie>> {
     return this.http.get<PageResponse<Movie>>(this.api, {
       params: {
         page,
         size,
+        sort,
+        ...(genreId !== undefined && { genreId }),
       },
     });
   }
@@ -26,12 +33,20 @@ export class MovieService {
     return this.http.get<Movie>(`${this.api}/${id}`);
   }
 
-    searchByTitle(title: string, page = 0, size = 8): Observable<PageResponse<Movie>> {
+  searchByTitle(
+    title: string,
+    page = 0,
+    size = 8,
+    sort = 'releaseYear,desc',
+    genreId?: number,
+  ): Observable<PageResponse<Movie>> {
     return this.http.get<PageResponse<Movie>>(this.api, {
       params: {
         title,
         page,
         size,
+        sort,
+        ...(genreId !== undefined && { genreId }),
       },
     });
   }

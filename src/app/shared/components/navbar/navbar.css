@@ -1,0 +1,21 @@
+.nav-link {
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--color-amber);
+}
+
+.nav-link.nav-active {
+  color: var(--color-amber);
+}
+
+.nav-link.nav-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--color-amber);
+}

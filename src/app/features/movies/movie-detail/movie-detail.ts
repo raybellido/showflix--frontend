@@ -25,26 +25,14 @@ export class MovieDetail implements OnInit {
     this.movieService.getById(id).subscribe({
       next: (movie) => {
         this.movie.set(movie);
-        console.log(movie);
+
+        this.favoriteService.isFavorite(id).subscribe({
+          next: (isFavorite) => this.isFavorite.set(isFavorite),
+          error: () => this.isFavorite.set(false),
+        });
       },
 
       error: (err) => console.error(err),
-    });
-  }
-
-  addFavorite() {
-    const id = this.movie()?.id;
-
-    if (!id) return;
-
-    this.favoriteService.addFavorite(id).subscribe({
-      next: () => {
-        console.log('Agregado a favoritos');
-      },
-
-      error: (err) => {
-        console.error(err);
-      },
     });
   }
 
@@ -57,19 +45,13 @@ export class MovieDetail implements OnInit {
 
     if (this.isFavorite()) {
       this.favoriteService.removeFavorite(movieId).subscribe({
-        next: () => {
-          this.isFavorite.set(false);
-
-          console.log('Eliminado de favoritos');
-        },
+        next: () => this.isFavorite.set(false),
+        error: (err) => console.error(err),
       });
     } else {
       this.favoriteService.addFavorite(movieId).subscribe({
-        next: () => {
-          this.isFavorite.set(true);
-
-          console.log('Agregado a favoritos');
-        },
+        next: () => this.isFavorite.set(true),
+        error: (err) => console.error(err),
       });
     }
   }

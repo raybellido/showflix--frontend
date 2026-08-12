@@ -1,1 +1,75 @@
-<p>home works!</p>
+<section class="relative min-h-[calc(100vh-6rem)] overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 projector-glow" aria-hidden="true"></div>
+
+  <div
+    class="relative mx-auto flex max-w-7xl flex-col justify-end px-4 pb-16 pt-16 sm:px-6 sm:pt-24 lg:px-8"
+  >
+    <p class="font-mono text-sm tracking-[0.3em] text-amber">AHORA EN CARTELERA</p>
+    <h1
+      class="mt-6 max-w-4xl font-display text-5xl leading-[1.05] text-screen sm:text-7xl lg:text-8xl"
+    >
+      EL CINE<br />
+      <span class="text-amber">EMPIEZA AQUÍ.</span>
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-relaxed text-grain">
+      GooDMovieS reúne en una sola sala el catálogo que quieres ver. Explora, descubre y guarda tus
+      películas favoritas.
+    </p>
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a
+        routerLink="/movies"
+        class="rounded-none bg-amber px-8 py-4 font-mono text-sm font-bold tracking-widest text-theater transition-colors hover:bg-amber-soft"
+      >
+        EXPLORAR CATÁLOGO
+      </a>
+      <a
+        routerLink="/favorites"
+        class="rounded-none border border-halo/60 px-8 py-4 font-mono text-sm tracking-widest text-screen transition-colors hover:border-amber hover:text-amber"
+      >
+        MIS FAVORITOS
+      </a>
+    </div>
+  </div>
+</section>
+<!-- Marquee ticker — signature -->
+<div class="border-y border-halo/60 bg-ticket/60 py-3" aria-hidden="true">
+  <div class="marquee-track flex w-max whitespace-nowrap">
+    @for (chunk of [0, 1]; track chunk) {
+      <div class="flex shrink-0">
+        @for (item of marqueeItems; track item) {
+          <span class="flex items-center gap-6 px-4 font-mono text-xs tracking-[0.25em] text-grain">
+            <span class="text-amber">✦</span>
+            <span class="uppercase">{{ item }}</span>
+          </span>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+<app-movie-trending />
+
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="font-mono text-xs tracking-[0.3em] text-amber">EN PRIMERA FILA</p>
+      <h2 class="mt-3 font-display text-3xl text-screen sm:text-4xl">LO NUEVO EN CARTELERA</h2>
+    </div>
+    <a
+      routerLink="/movies"
+      class="font-mono text-xs tracking-widest text-grain transition-colors hover:text-amber"
+    >
+      VER TODO →
+    </a>
+  </div>
+
+  @if (movies().length > 0) {
+    <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      @for (movie of movies(); track movie.id) {
+        <app-movie-card [movie]="movie" />
+      }
+    </div>
+  } @else {
+    <p class="mt-10 font-mono text-sm text-grain">Cargando la cartelera…</p>
+  }
+</section>

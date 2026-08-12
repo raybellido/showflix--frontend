@@ -1,0 +1,13 @@
+<section class="mt-12">
+  <div class="mb-6 flex items-center justify-between">
+    <h2 class="font-display text-3xl text-screen">🔥 TENDENCIAS</h2>
+  </div>
+
+  <div class="flex gap-5 overflow-x-auto pb-4">
+    @for (movie of movies(); track movie.id) {
+      <div class="w-44 shrink-0 sm:w-48">
+        <app-movie-card [movie]="movie" />
+      </div>
+    }
+  </div>
+</section>

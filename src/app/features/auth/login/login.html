@@ -1,77 +1,66 @@
-<div
-  class="bg-linear-to-b from-black via-zinc-900 to-black h-screen flex flex-col justify-between font-sans"
->
-  <!-- Encabezado con el Logo -->
-  <header class="px-8 py-6 md:px-16">
-    <h1
-      class="text-4xl text-center font-extrabold tracking-wider text-red-600 font-serif select-none"
-    >
-      SHOWFLIX
-    </h1>
+<div class="relative flex min-h-screen flex-col overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 projector-glow" aria-hidden="true"></div>
+  <div class="film-strip opacity-60" aria-hidden="true"></div>
+
+  <header class="relative px-6 py-6 sm:px-10">
+    <a routerLink="/" class="inline-block font-display text-2xl tracking-tight select-none">
+      <span class="text-screen">SHOW</span><span class="text-amber">FLIX</span>
+    </a>
   </header>
 
-  <!-- Contenedor de la Tarjeta de Login -->
-  <main class="grow flex items-start justify-center px-4 sm:items-center">
-    <div
-      class="w-full max-w-112.5 bg-black/75 rounded-md p-8 md:p-16 border border-zinc-800/40 backdrop-blur-sm shadow-2xl"
-    >
-      <h2 class="text-3xl font-bold tracking-tight text-white mb-7">Sign In</h2>
+  <main class="relative flex grow items-center justify-center px-4 py-10">
+    <div class="w-full max-w-md border border-halo/50 bg-ticket/70 p-8 backdrop-blur-sm sm:p-10">
+      <p class="font-mono text-xs tracking-[0.3em] text-amber">SALA DE MIEMBROS</p>
+      <h1 class="mt-3 font-display text-3xl text-screen">INICIAR SESIÓN</h1>
 
-      <!-- Tu Formulario de Angular -->
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
-        <!-- Input de Email -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-5">
+        @if (loginError()) {
+          <p
+            class="border border-red-400/40 bg-red-400/10 px-4 py-3 font-mono text-xs text-red-300"
+            role="alert"
+          >
+            {{ loginError() }}
+          </p>
+        }
+
         <div>
+          <label for="email" class="mb-2 block font-mono text-xs tracking-widest text-grain">EMAIL</label>
           <input
+            id="email"
             type="email"
             formControlName="email"
-            placeholder="Email"
-            class="block w-full rounded bg-zinc-800/80 px-4 py-3.5 text-white border border-zinc-600 placeholder:text-zinc-400 focus:outline-none focus:border-white focus:ring-1 focus:ring-white text-sm transition-all"
+            placeholder="tucorreo@cine.com"
+            class="block w-full rounded-none border border-halo/60 bg-theater px-4 py-3 text-sm text-screen placeholder:text-grain/50 focus:border-amber focus:outline-none"
           />
         </div>
 
-        <!-- Input de Password -->
         <div>
+          <label for="password" class="mb-2 block font-mono text-xs tracking-widest text-grain">CONTRASEÑA</label>
           <input
+            id="password"
             type="password"
             formControlName="password"
-            placeholder="Password"
-            class="block w-full rounded bg-zinc-800/80 px-4 py-3.5 text-white border border-zinc-600 placeholder:text-zinc-400 focus:outline-none focus:border-white focus:ring-1 focus:ring-white text-sm transition-all"
+            placeholder="••••••••"
+            class="block w-full rounded-none border border-halo/60 bg-theater px-4 py-3 text-sm text-screen placeholder:text-grain/50 focus:border-amber focus:outline-none"
           />
         </div>
 
-        <!-- Botón de Iniciar Sesión -->
-        <div class="pt-2">
-          <button
-            type="submit"
-            class="flex w-full justify-center rounded bg-red-600 px-3 py-3 text-sm font-semibold text-white hover:bg-red-700 transition duration-200 cursor-pointer"
-          >
-            Iniciar sesión
-          </button>
-        </div>
+        <button
+          type="submit"
+          class="mt-2 w-full rounded-none bg-amber px-4 py-3 font-mono text-sm font-bold tracking-widest text-theater transition-colors hover:bg-amber-soft"
+        >
+          ENTRAR A LA SALA
+        </button>
       </form>
 
-      <!-- Pie de la tarjeta -->
-      <div class="mt-16 text-sm text-zinc-500">
-        <p>
-          ¿Primera vez en Showflix?
-          <a href="#" class="text-white font-medium hover:underline ml-1">Suscríbete ya</a>.
-        </p>
-      </div>
+      <p class="mt-8 text-sm text-grain">
+        ¿Primera vez en Showflix?
+        <a href="#" class="font-mono text-xs tracking-widest text-amber hover:underline">SUSCRÍBETE</a>.
+      </p>
     </div>
   </main>
 
-  <!-- Footer inferior -->
-  <footer
-    class="bg-black/80 border-t border-zinc-800/60 py-6 text-center text-xs text-zinc-500 hidden sm:block"
-  >
-    <p>© 2026 Showflix, Inc.</p>
+  <footer class="relative px-6 py-6 text-center font-mono text-[10px] tracking-[0.3em] text-grain/60 sm:px-10">
+    © 2026 SHOWFLIX · TU CINE EN CASA
   </footer>
 </div>
-
-<!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input type="email" formControlName="email" placeholder="Email" />
-
-  <input type="password" formControlName="password" placeholder="Password" />
-
-  <button type="submit">Iniciar sesión</button>
-</form> -->
