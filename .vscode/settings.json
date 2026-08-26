@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
         "Películas"
-    ]
+    ],
+    "angular-schematics.schematicsDefaultOptions": {
+        "angular-component": {
+            "ngOnInit": true
+        }
+    }
 }

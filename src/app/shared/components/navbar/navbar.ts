@@ -10,11 +10,12 @@ import { MovieSearchService } from '../../../core/services/movieSearchService';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  private authService = inject(AuthService);
+  authService = inject(AuthService);
   private router = inject(Router);
   private movieSearchService = inject(MovieSearchService);
 
   isAuthenticated = this.authService.isAuthenticated;
+
   menuOpen = signal(false);
 
   logout() {
@@ -26,5 +27,9 @@ export class Navbar {
   onSearch(value: string) {
     console.log('Buscando:', value);
     this.movieSearchService.setSearchTerm(value);
+  }
+
+  isMoviesPage(): boolean {
+    return this.router.url === '/movies';
   }
 }

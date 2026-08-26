@@ -33,17 +33,29 @@
           FAVORITOS
         </a>
       }
+
+      @if (authService.isAdmin()) {
+        <a
+          routerLink="/admin"
+          routerLinkActive="nav-active"
+          class="nav-link font-mono text-sm tracking-widest text-grain transition-colors"
+        >
+          DASHBOARD
+        </a>
+      }
     </div>
 
     <div class="ml-auto flex items-center gap-3">
-      <input
-        #searchInput
-        type="text"
-        placeholder="Buscar película…"
-        class="w-36 rounded-none border border-halo/60 bg-ticket px-3 py-2 font-mono text-xs text-screen placeholder:text-grain/70 focus:border-amber focus:outline-none sm:w-52 lg:w-64"
-        (input)="onSearch(searchInput.value)"
-        aria-label="Buscar película"
-      />
+      @if (isMoviesPage()) {
+        <input
+          #searchInput
+          type="text"
+          placeholder="Buscar película…"
+          class="w-36 rounded-none border border-halo/60 bg-ticket px-3 py-2 font-mono text-xs text-screen placeholder:text-grain/70 focus:border-amber focus:outline-none sm:w-52 lg:w-64"
+          (input)="onSearch(searchInput.value)"
+          aria-label="Buscar película"
+        />
+      }
 
       @if (isAuthenticated()) {
         <button
@@ -67,7 +79,14 @@
         class="flex h-10 w-10 items-center justify-center border border-halo/60 text-screen md:hidden"
         aria-label="Abrir menú"
       >
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <svg
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
           @if (menuOpen()) {
             <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
           } @else {

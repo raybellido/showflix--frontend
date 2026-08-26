@@ -4,6 +4,7 @@ import { environment } from '../../../enviroment';
 import { Observable } from 'rxjs';
 import { Movie } from '../../shared/models/movie';
 import { PageResponse } from '../../shared/models/page-response';
+import { MovieUpdateRequest } from '../../shared/models/movieUpdateRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -49,5 +50,13 @@ export class MovieService {
         ...(genreId !== undefined && { genreId }),
       },
     });
+  }
+
+  update(id: number, request: MovieUpdateRequest): Observable<Movie> {
+    return this.http.put<Movie>(`${this.api}/${id}`, request);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
   }
 }

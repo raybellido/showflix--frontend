@@ -1,0 +1,124 @@
+@if (movie(); as currentMovie) {
+  <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mb-10">
+      <p class="font-mono text-xs tracking-[0.3em] text-amber">CONTENIDO</p>
+
+      <h1 class="mt-3 font-display text-4xl text-screen">EDITAR PELÍCULA</h1>
+
+      <p class="mt-2 text-sm text-grain">Modifica la información de "{{ currentMovie.title }}".</p>
+    </div>
+
+    <form [formGroup]="movieForm" (ngSubmit)="save()">
+      <div>
+        <label for="title" class="mb-2 block font-mono text-xs tracking-widest text-grain">
+          TÍTULO
+        </label>
+
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          class="w-full border border-halo/50 bg-ticket px-4 py-3 text-screen outline-none focus:border-amber"
+          [class.border-red-500]="
+            movieForm.controls.title.invalid && movieForm.controls.title.touched
+          "
+        />
+
+        @if (movieForm.controls.title.touched && movieForm.controls.title.errors) {
+          <p class="mt-2 font-mono text-xs text-red-400">
+            @if (movieForm.controls.title.hasError('required')) {
+              El título es obligatorio.
+            }
+            @if (movieForm.controls.title.hasError('minlength')) {
+              El título debe tener al menos 2 caracteres.
+            }
+            @if (movieForm.controls.title.hasError('maxlength')) {
+              El título no puede superar los 100 caracteres.
+            }
+          </p>
+        }
+      </div>
+
+      <div>
+        <label for="description" class="mb-2 block font-mono text-xs tracking-widest text-grain">
+          DESCRIPCIÓN
+        </label>
+
+        <textarea
+          id="description"
+          rows="5"
+          formControlName="description"
+          class="w-full border border-halo/50 bg-ticket px-4 py-3 text-screen outline-none focus:border-amber"
+          [class.border-red-500]="
+            movieForm.controls.description.invalid && movieForm.controls.description.touched
+          "
+        ></textarea>
+
+        @if (movieForm.controls.description.touched && movieForm.controls.description.errors) {
+          @if (movieForm.controls.description.errors['required']) {
+            <p class="mt-2 font-mono text-xs text-red-400">La descripción es obligatoria.</p>
+          }
+
+          @if (movieForm.controls.description.errors['minlength']) {
+            <p class="mt-2 font-mono text-xs text-red-400">
+              La descripción debe tener al menos 10 caracteres.
+            </p>
+          }
+
+          @if (movieForm.controls.description.errors['maxlength']) {
+            <p class="mt-2 font-mono text-xs text-red-400">
+              La descripción no puede superar los 500 caracteres.
+            </p>
+          }
+        }
+      </div>
+
+      <div>
+        <label for="genre" class="mb-2 block font-mono text-xs tracking-widest text-grain">
+          GÉNERO
+        </label>
+
+        <select
+          id="genre"
+          formControlName="genreId"
+          class="w-full border border-halo/50 bg-ticket px-4 py-3 text-screen outline-none focus:border-amber"
+          [class.border-red-500]="
+            movieForm.controls.genreId.invalid && movieForm.controls.genreId.touched
+          "
+        >
+          <option value="0" disabled>SELECCIONA UN GÉNERO</option>
+
+          @for (genre of genres(); track genre.id) {
+            <option [value]="genre.id">
+              {{ genre.name }}
+            </option>
+          }
+        </select>
+
+        @if (movieForm.controls.genreId.touched && movieForm.controls.genreId.errors) {
+          @if (movieForm.controls.genreId.errors['min']) {
+            <p class="mt-2 font-mono text-xs text-red-400">Debes seleccionar un género.</p>
+          }
+        }
+      </div>
+
+      <div class="mt-6 flex gap-4">
+        <button
+          type="submit"
+          [disabled]="movieForm.invalid"
+          class="bg-amber px-6 py-3 font-mono text-xs font-bold tracking-widest text-theater hover:bg-amber-soft disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          GUARDAR CAMBIOS
+        </button>
+
+        <button
+          type="button"
+          (click)="cancel()"
+          class="border border-halo/50 px-6 py-3 font-mono text-xs tracking-widest text-screen hover:border-amber hover:text-amber"
+        >
+          CANCELAR
+        </button>
+      </div>
+    </form>
+  </section>
+}

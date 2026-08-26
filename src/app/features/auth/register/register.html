@@ -1,0 +1,167 @@
+<div class="min-h-screen bg-theater px-4 py-12">
+  <div class="mx-auto w-full max-w-md">
+    <!-- Encabezado -->
+    <div class="mb-8 text-center">
+      <p class="font-mono text-xs tracking-[0.3em] text-amber">SHOWFLIX</p>
+
+      <h1 class="mt-3 font-display text-4xl text-screen">CREAR CUENTA</h1>
+
+      <p class="mt-3 text-sm text-grain">Regístrate para comenzar a disfrutar de tus películas.</p>
+    </div>
+
+    <!-- Formulario -->
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="register()"
+      class="border border-halo/50 bg-ticket p-6"
+    >
+      <!-- Nombre -->
+      <div>
+        <label for="name" class="mb-2 block font-mono text-xs tracking-widest text-grain">
+          NOMBRE
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="w-full border border-halo/50 bg-theater px-4 py-3 text-screen outline-none focus:border-amber"
+          [class.border-red-500]="
+            registerForm.controls.name.invalid && registerForm.controls.name.touched
+          "
+        />
+
+        @if (registerForm.controls.name.touched && registerForm.controls.name.invalid) {
+          <p class="mt-2 font-mono text-xs text-red-400">
+            @if (registerForm.controls.name.hasError('required')) {
+              El nombre es obligatorio.
+            } @else if (registerForm.controls.name.hasError('minlength')) {
+              El nombre debe tener al menos 2 caracteres.
+            } @else if (registerForm.controls.name.hasError('maxlength')) {
+              El nombre no puede superar los 50 caracteres.
+            }
+          </p>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="mt-5">
+        <label for="email" class="mb-2 block font-mono text-xs tracking-widest text-grain">
+          EMAIL
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="w-full border border-halo/50 bg-theater px-4 py-3 text-screen outline-none focus:border-amber"
+          [class.border-red-500]="
+            registerForm.controls.email.invalid && registerForm.controls.email.touched
+          "
+        />
+
+        @if (registerForm.controls.email.touched && registerForm.controls.email.errors) {
+          @if (registerForm.controls.email.errors['required']) {
+            <p class="mt-2 font-mono text-xs text-red-400">El email es obligatorio.</p>
+          }
+
+          @if (registerForm.controls.email.errors['email']) {
+            <p class="mt-2 font-mono text-xs text-red-400">Ingresa un email válido.</p>
+          }
+        }
+      </div>
+
+      @if (registerError()) {
+        <p class="mt-2 font-mono text-xs text-red-400">
+          {{ registerError() }}
+        </p>
+      }
+      <!-- Password -->
+      <div class="mt-5">
+        <label for="password" class="mb-2 block font-mono text-xs tracking-widest text-grain">
+          CONTRASEÑA
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="w-full border border-halo/50 bg-theater px-4 py-3 text-screen outline-none focus:border-amber"
+          [class.border-red-500]="
+            registerForm.controls.password.invalid && registerForm.controls.password.touched
+          "
+        />
+
+        @if (registerForm.controls.password.touched && registerForm.controls.password.errors) {
+          @if (registerForm.controls.password.errors['required']) {
+            <p class="mt-2 font-mono text-xs text-red-400">La contraseña es obligatoria.</p>
+          }
+
+          @if (registerForm.controls.password.errors['minlength']) {
+            <p class="mt-2 font-mono text-xs text-red-400">
+              La contraseña debe tener al menos 6 caracteres.
+            </p>
+          }
+        }
+      </div>
+
+      <!-- Confirmar password -->
+      <div class="mt-5">
+        <label
+          for="confirmPassword"
+          class="mb-2 block font-mono text-xs tracking-widest text-grain"
+        >
+          CONFIRMAR CONTRASEÑA
+        </label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          class="w-full border border-halo/50 bg-theater px-4 py-3 text-screen outline-none focus:border-amber"
+          [class.border-red-500]="
+            registerForm.controls.confirmPassword.invalid &&
+            registerForm.controls.confirmPassword.touched
+          "
+        />
+
+        @if (
+          registerForm.controls.confirmPassword.touched &&
+          registerForm.controls.confirmPassword.errors
+        ) {
+          @if (registerForm.controls.confirmPassword.errors['required']) {
+            <p class="mt-2 font-mono text-xs text-red-400">Debes confirmar la contraseña.</p>
+          }
+        }
+
+        @if (
+          registerForm.hasError('passwordMismatch') && registerForm.controls.confirmPassword.touched
+        ) {
+          <p class="mt-2 font-mono text-xs text-red-400">Las contraseñas no coinciden.</p>
+        }
+      </div>
+
+      <!-- Botón -->
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid"
+        class="mt-7 w-full bg-amber px-6 py-3 font-mono text-xs font-bold tracking-widest text-theater hover:bg-amber-soft disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        CREAR CUENTA
+      </button>
+
+      <!-- Login -->
+      <div class="mt-6 text-center">
+        <p class="text-sm text-grain">¿Ya tienes una cuenta?</p>
+
+        <button
+          type="button"
+          (click)="goToLogin()"
+          class="mt-2 font-mono text-xs tracking-widest text-amber hover:text-amber-soft"
+        >
+          INICIAR SESIÓN
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
