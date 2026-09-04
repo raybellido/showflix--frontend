@@ -7,7 +7,7 @@
       <select
         [value]="sort()"
         (change)="changeSort($event)"
-        class="bg-zinc-800 text-white px-4 py-2 rounded border border-zinc-700"
+        class="border border-halo/50 bg-ticket px-4 py-2 font-mono text-xs text-screen outline-none focus:border-amber"
       >
         <option value="releaseYear,desc">Más recientes</option>
 
@@ -25,7 +25,9 @@
     <p class="font-mono text-xs tracking-widest text-grain">{{ totalElements() }} TÍTULOS</p>
   </div>
 
-  <select [value]="selectedGenre() ?? ''" (change)="changeGenre($any($event.target).value)">
+  <select [value]="selectedGenre() ?? ''" (change)="changeGenre($any($event.target).value)"
+    class="mt-4 border border-halo/50 bg-ticket px-4 py-2 font-mono text-xs text-screen outline-none focus:border-amber"
+  >
     <option value="">Todos los géneros</option>
 
     @for (genre of genres(); track genre.id) {
@@ -62,7 +64,7 @@
       <button
         (click)="changePage(currentPage() - 1)"
         [disabled]="currentPage() === 0"
-        class="border border-halo/50 px-4 py-2 text-grain transition-colors hover:border-amber hover:text-amber disabled:opacity-30 disabled:hover:border-halo/50 disabled:hover:text-grain"
+        class="border border-halo/50 px-4 py-2 font-mono text-xs tracking-widest text-grain transition-all duration-200 hover:border-amber hover:text-amber disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-halo/50 disabled:hover:text-grain"
       >
         ← ANTERIOR
       </button>
@@ -70,12 +72,13 @@
       @for (page of getPages(); track page) {
         <button
           (click)="changePage(page)"
-          class="h-10 w-10 border transition-colors"
+          class="h-10 w-10 border font-mono text-sm transition-all duration-200"
           [class.bg-amber]="currentPage() === page"
           [class.text-theater]="currentPage() === page"
           [class.border-halo/50]="currentPage() !== page"
           [class.text-screen]="currentPage() !== page"
           [class.hover:border-amber]="currentPage() !== page"
+          [class.hover:text-amber]="currentPage() !== page"
         >
           {{ page + 1 }}
         </button>
@@ -84,7 +87,7 @@
       <button
         (click)="changePage(currentPage() + 1)"
         [disabled]="currentPage() === totalPages() - 1"
-        class="border border-halo/50 px-4 py-2 text-grain transition-colors hover:border-amber hover:text-amber disabled:opacity-30 disabled:hover:border-halo/50 disabled:hover:text-grain"
+        class="border border-halo/50 px-4 py-2 font-mono text-xs tracking-widest text-grain transition-all duration-200 hover:border-amber hover:text-amber disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-halo/50 disabled:hover:text-grain"
       >
         SIGUIENTE →
       </button>

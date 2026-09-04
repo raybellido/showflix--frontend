@@ -1,0 +1,190 @@
+<section class="mt-10">
+  <a
+    routerLink="/admin"
+    class="inline-block font-mono text-xs tracking-widest text-grain transition-colors hover:text-amber"
+  >
+    ← VOLVER AL DASHBOARD
+  </a>
+
+  <div class="mt-6 flex flex-wrap items-end justify-between gap-4">
+<div>
+    <p class="font-mono text-xs tracking-[0.3em] text-amber">USUARIOS</p>
+
+    <h2 class="mt-2 font-display text-3xl text-screen">ADMINISTRAR USUARIOS</h2>
+
+    <p class="mt-2 font-mono text-xs text-grain">{{ totalElements() }} USUARIOS</p>
+</div>
+</div>
+
+@if (successMessage()) {
+<div class="mt-6 border border-green-500/40 bg-green-500/10 px-4 py-3">
+    <p class="font-mono text-xs tracking-widest text-green-400">✓ {{ successMessage() }}</p>
+</div>
+}
+
+@if (errorMessage()) {
+<div class="mt-6 border border-red-500/40 bg-red-500/10 px-4 py-3">
+    <p class="font-mono text-xs tracking-widest text-red-400">✕ {{ errorMessage() }}</p>
+</div>
+}
+
+<div class="mt-6 flex flex-wrap gap-2">
+@for (option of statusFilters; track option) {
+    <button
+    type="button"
+    (click)="setFilter(option)"
+    class="border px-4 py-2 font-mono text-xs tracking-widest transition-colors"
+    [class.border-amber]="activeFilter() === option"
+    [class.text-amber]="activeFilter() === option"
+    [class.border-halo/50]="activeFilter() !== option"
+    [class.text-grain]="activeFilter() !== option"
+    [class.hover:border-amber]="activeFilter() !== option"
+    [class.hover:text-amber]="activeFilter() !== option"
+    >
+    @if (option === 'ALL') {
+        TODOS
+    } @else if (option === 'ACTIVE') {
+        ACTIVOS
+    } @else {
+        INACTIVOS
+    }
+    </button>
+}
+</div>
+
+@if (loading()) {
+<div class="mt-8 border border-halo/50 bg-ticket px-6 py-16 text-center">
+    <p class="font-mono text-sm tracking-widest text-grain">CARGANDO...</p>
+</div>
+} @else if (users().length > 0) {
+<div class="mt-8 overflow-x-auto border border-halo/50">
+    <table class="w-full min-w-200 text-left">
+    <thead class="border-b border-halo/50 bg-ticket">
+        <tr>
+        <th class="px-4 py-4 font-mono text-xs tracking-widest text-grain">ID</th>
+        <th class="px-4 py-4 font-mono text-xs tracking-widest text-grain">NOMBRE</th>
+        <th class="px-4 py-4 font-mono text-xs tracking-widest text-grain">EMAIL</th>
+        <th class="px-4 py-4 font-mono text-xs tracking-widest text-grain">ROL</th>
+        <th class="px-4 py-4 font-mono text-xs tracking-widest text-grain">ESTADO</th>
+        <th class="px-4 py-4 font-mono text-xs tracking-widest text-grain">ACCIONES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (user of users(); track user.id) {
+        <tr class="border-b border-halo/30 hover:bg-ticket/60">
+            <td class="px-4 py-4 font-mono text-sm text-grain">{{ user.id }}</td>
+
+            <td class="px-4 py-4 text-screen">{{ user.name }}</td>
+
+            <td class="px-4 py-4 font-mono text-sm text-grain">{{ user.email }}</td>
+
+            <td class="px-4 py-4 font-mono text-xs text-amber">{{ user.role }}</td>
+
+            <td class="px-4 py-4">
+            @if (isActive(user)) {
+                <span class="inline-flex items-center gap-2 font-mono text-xs text-green-400">
+                <span class="h-2 w-2 rounded-full bg-green-400"></span>
+                ACTIVO
+                </span>
+            } @else {
+                <span class="inline-flex items-center gap-2 font-mono text-xs text-grain">
+                <span class="h-2 w-2 rounded-full bg-grain"></span>
+                INACTIVO
+                </span>
+            }
+            </td>
+
+            <td class="px-4 py-4">
+            <div class="flex gap-2">
+                @if (isActive(user)) {
+                <button
+                    type="button"
+                    (click)="softDelete(user)"
+                    class="border border-red-500/50 px-3 py-2 font-mono text-xs text-red-400 hover:bg-red-500 hover:text-white"
+                >
+                    DESACTIVAR
+                </button>
+                } @else {
+                <button
+                    type="button"
+                    (click)="restore(user)"
+                    class="border border-green-500/50 px-3 py-2 font-mono text-xs text-green-400 hover:bg-green-500 hover:text-white"
+                >
+                    RESTAURAR
+                </button>
+                }
+            </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+    </table>
+</div>
+
+<div class="mt-6 flex items-center justify-between">
+    <button
+    type="button"
+    (click)="prevPage()"
+    [disabled]="currentPage() === 0"
+    class="border border-halo/50 px-4 py-2 font-mono text-xs tracking-widest text-screen transition-colors hover:border-amber hover:text-amber disabled:cursor-not-allowed disabled:opacity-40"
+    >
+    ← ANTERIOR
+    </button>
+
+    <p class="font-mono text-xs tracking-widest text-grain">
+    PÁGINA {{ currentPage() + 1 }} DE {{ totalPages() || 1 }}
+    </p>
+
+    <button
+    type="button"
+    (click)="nextPage()"
+    [disabled]="currentPage() >= totalPages() - 1"
+    class="border border-halo/50 px-4 py-2 font-mono text-xs tracking-widest text-screen transition-colors hover:border-amber hover:text-amber disabled:cursor-not-allowed disabled:opacity-40"
+    >
+    SIGUIENTE →
+    </button>
+</div>
+} @else {
+<div class="mt-8 border border-dashed border-halo/50 px-6 py-16 text-center">
+    <p class="font-mono text-sm tracking-widest text-grain">NO HAY USUARIOS</p>
+</div>
+}
+
+@if (showDeleteModal()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+    <div class="w-full max-w-md border border-halo/50 bg-ticket p-6 shadow-2xl">
+    <p class="font-mono text-xs tracking-[0.3em] text-red-400">CONFIRMAR ACCIÓN</p>
+
+    <h2 class="mt-3 font-display text-2xl text-screen">DESACTIVAR USUARIO</h2>
+
+    <p class="mt-4 text-sm leading-6 text-grain">
+        ¿Estás seguro de que deseas desactivar a
+        <span class="font-semibold text-amber">"{{ selectedUser()?.name }}"</span>?
+    </p>
+
+    <p class="mt-2 font-mono text-xs text-grain">
+        El usuario será marcado como INACTIVO y no podrá acceder.
+    </p>
+
+    <div class="mt-6 flex justify-end gap-3">
+        <button
+        type="button"
+        (click)="closeDeleteModal()"
+        class="border border-halo/50 px-5 py-3 font-mono text-xs tracking-widest text-screen hover:border-amber hover:text-amber"
+        >
+        CANCELAR
+        </button>
+
+        <button
+        type="button"
+        (click)="confirmDelete()"
+        class="bg-red-500 px-5 py-3 font-mono text-xs font-bold tracking-widest text-white hover:bg-red-600"
+        >
+        DESACTIVAR
+        </button>
+    </div>
+    </div>
+</div>
+}
+</section>

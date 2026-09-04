@@ -35,6 +35,11 @@ body {
   outline-offset: 2px;
 }
 
+a,
+button {
+  cursor: pointer;
+}
+
 /* Film sprocket perforations */
 .film-strip {
   height: 8px;

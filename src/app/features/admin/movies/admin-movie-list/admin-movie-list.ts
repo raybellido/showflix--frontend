@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { MovieService } from '../../../../core/services/movie.service';
 import { Movie } from '../../../../shared/models/movie';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-movie-list',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './admin-movie-list.html',
   styleUrl: './admin-movie-list.css',
 })

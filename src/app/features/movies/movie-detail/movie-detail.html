@@ -1,4 +1,40 @@
-@if (movie()) {
+@if (blocked()) {
+  <div class="relative flex min-h-screen items-center justify-center overflow-hidden px-4">
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="absolute inset-0 bg-theater"></div>
+      <div class="absolute inset-0 projector-glow"></div>
+    </div>
+
+    <div class="relative max-w-lg border border-halo/50 bg-ticket/70 p-10 text-center backdrop-blur-sm">
+      <p class="font-mono text-xs tracking-[0.3em] text-amber">CONTENIDO NO DISPONIBLE</p>
+
+      <div class="mt-6 flex justify-center" aria-hidden="true">
+        <span class="flex h-16 w-16 items-center justify-center border border-halo/60 text-4xl text-grain">
+          <span>⌀</span>
+        </span>
+      </div>
+
+      <h1 class="mt-6 font-display text-3xl text-screen sm:text-4xl">
+        BLOQUEADA POR EL PROVEEDOR
+      </h1>
+
+      <p class="mt-4 text-grain">
+        Esta película ha sido desactivada y por el momento no está disponible para ver.
+      </p>
+
+      <div class="mt-8 opacity-30" aria-hidden="true">
+        <div class="mx-auto h-px w-24 bg-grain"></div>
+      </div>
+
+      <a
+        routerLink="/movies"
+        class="mt-8 inline-flex items-center gap-2 px-6 py-3 font-mono text-xs tracking-widest text-screen transition-colors hover:text-amber"
+      >
+        ← VOLVER AL CATÁLOGO
+      </a>
+    </div>
+  </div>
+} @else if (movie()) {
   <div class="relative min-h-screen overflow-hidden">
     <div class="absolute inset-0" aria-hidden="true">
       <img

@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Movie } from '../../../shared/models/movie';
 import { MovieService } from '../../../core/services/movie.service';
 import { FavoriteService } from '../../../core/services/favoriteService';
 
 @Component({
   selector: 'app-movie-detail',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './movie-detail.html',
   styleUrl: './movie-detail.css',
 })
@@ -18,6 +18,8 @@ export class MovieDetail implements OnInit {
   isFavorite = signal(false);
 
   movie = signal<Movie | null>(null);
+
+  blocked = signal(false);
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -32,7 +34,13 @@ export class MovieDetail implements OnInit {
         });
       },
 
-      error: (err) => console.error(err),
+      error: (err) => {
+        if (err.status === 404) {
+          this.blocked.set(true);
+        } else {
+          console.error(err);
+        }
+      },
     });
   }
 

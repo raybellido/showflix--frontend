@@ -11,6 +11,7 @@ import { Dashboard } from './features/admin/dashboard/dashboard';
 import { AdminMovieList } from './features/admin/movies/admin-movie-list/admin-movie-list';
 import { AdminMovieEdit } from './features/admin/movies/admin-movie-edit/admin-movie-edit';
 import { Register } from './features/auth/register/register';
+import { AdminUsersList } from './features/admin/users/admin-users-list/admin-users-list';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,11 @@ export const routes: Routes = [
       {
         path: 'movies/edit/:id',
         component: AdminMovieEdit,
+      },
+
+      {
+        path: 'users',
+        component: AdminUsersList,
       },
     ],
   },
