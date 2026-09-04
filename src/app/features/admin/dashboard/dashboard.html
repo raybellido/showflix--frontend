@@ -1,0 +1,201 @@
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+
+  <a
+    routerLink="/"
+    class="inline-block font-mono text-xs tracking-widest text-grain transition-colors hover:text-amber"
+  >
+    ← VOLVER AL INICIO
+  </a>
+
+  <!-- Header -->
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="font-mono text-xs tracking-[0.3em] text-amber">
+        PANEL DE CONTROL
+      </p>
+
+      <h1 class="mt-3 font-display text-4xl text-screen sm:text-5xl">
+        ADMINISTRACIÓN
+      </h1>
+
+      <p class="mt-3 max-w-xl text-grain">
+        Gestiona el catálogo y los usuarios de Showflix.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- Statistics -->
+  <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+    <!-- Movies -->
+    <div class="border border-halo/50 bg-ticket p-6">
+      <p class="font-mono text-xs tracking-widest text-grain">
+        PELÍCULAS
+      </p>
+
+      <p class="mt-4 font-display text-4xl text-screen">
+        120
+      </p>
+
+      <p class="mt-2 font-mono text-xs text-amber">
+        +8 ESTE MES
+      </p>
+    </div>
+
+
+    <!-- Users -->
+    <div class="border border-halo/50 bg-ticket p-6">
+      <p class="font-mono text-xs tracking-widest text-grain">
+        USUARIOS
+      </p>
+
+      <p class="mt-4 font-display text-4xl text-screen">
+        35
+      </p>
+
+      <p class="mt-2 font-mono text-xs text-amber">
+        +5 ESTE MES
+      </p>
+    </div>
+
+
+    <!-- Favorites -->
+    <div class="border border-halo/50 bg-ticket p-6">
+      <p class="font-mono text-xs tracking-widest text-grain">
+        FAVORITOS
+      </p>
+
+      <p class="mt-4 font-display text-4xl text-screen">
+        87
+      </p>
+
+      <p class="mt-2 font-mono text-xs text-grain">
+        TOTAL REGISTRADOS
+      </p>
+    </div>
+
+
+    <!-- Genres -->
+    <div class="border border-halo/50 bg-ticket p-6">
+      <p class="font-mono text-xs tracking-widest text-grain">
+        GÉNEROS
+      </p>
+
+      <p class="mt-4 font-display text-4xl text-screen">
+        6
+      </p>
+
+      <p class="mt-2 font-mono text-xs text-grain">
+        CATEGORÍAS ACTIVAS
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- Management -->
+  <div class="mt-12">
+
+    <div class="flex items-end justify-between">
+      <div>
+        <p class="font-mono text-xs tracking-[0.3em] text-amber">
+          ADMINISTRACIÓN
+        </p>
+
+        <h2 class="mt-3 font-display text-3xl text-screen">
+          GESTIONAR CONTENIDO
+        </h2>
+      </div>
+    </div>
+
+
+    <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
+
+      <!-- Movies -->
+      <a
+        routerLink="/admin/movies"
+        class="group border border-halo/50 bg-ticket p-6 transition-all duration-300 hover:border-amber/70 hover:shadow-[0_0_30px_-10px_rgba(232,163,61,0.45)]"
+      >
+        <div class="flex items-center justify-between">
+
+          <span class="text-3xl">
+            🎬
+          </span>
+
+          <span class="font-mono text-xs text-grain transition-colors group-hover:text-amber">
+            →
+          </span>
+
+        </div>
+
+        <h3 class="mt-6 font-display text-2xl text-screen">
+          PELÍCULAS
+        </h3>
+
+        <p class="mt-2 text-sm text-grain">
+          Editar y eliminar películas del catálogo.
+        </p>
+      </a>
+
+
+      <!-- Users -->
+      <a
+        routerLink="/admin/users"
+        class="group border border-halo/50 bg-ticket p-6 transition-all duration-300 hover:border-amber/70 hover:shadow-[0_0_30px_-10px_rgba(232,163,61,0.45)]"
+      >
+        <div class="flex items-center justify-between">
+
+          <span class="text-3xl">
+            👥
+          </span>
+
+          <span class="font-mono text-xs text-grain transition-colors group-hover:text-amber">
+            →
+          </span>
+
+        </div>
+
+        <h3 class="mt-6 font-display text-2xl text-screen">
+          USUARIOS
+        </h3>
+
+        <p class="mt-2 text-sm text-grain">
+          Administrar usuarios y sus roles.
+        </p>
+      </a>
+
+
+      <!-- Genres -->
+      <a
+        routerLink="/admin/genres"
+        class="group border border-halo/50 bg-ticket p-6 transition-all duration-300 hover:border-amber/70 hover:shadow-[0_0_30px_-10px_rgba(232,163,61,0.45)]"
+      >
+        <div class="flex items-center justify-between">
+
+          <span class="text-3xl">
+            🎭
+          </span>
+
+          <span class="font-mono text-xs text-grain transition-colors group-hover:text-amber">
+            →
+          </span>
+
+        </div>
+
+        <h3 class="mt-6 font-display text-2xl text-screen">
+          GÉNEROS
+        </h3>
+
+        <p class="mt-2 text-sm text-grain">
+          Administrar los géneros disponibles.
+        </p>
+      </a>
+
+    </div>
+
+  </div>
+  
+
+</section>
+

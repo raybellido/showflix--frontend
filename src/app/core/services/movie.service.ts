@@ -4,6 +4,7 @@ import { environment } from '../../../enviroment';
 import { Observable } from 'rxjs';
 import { Movie } from '../../shared/models/movie';
 import { PageResponse } from '../../shared/models/page-response';
+import { MovieUpdateRequest } from '../../shared/models/movieUpdateRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +14,18 @@ export class MovieService {
 
   private api = `${environment.apiUrl}/movies`;
 
-  getAll(page = 0, size = 8): Observable<PageResponse<Movie>> {
+  getAll(
+    page = 0,
+    size = 8,
+    sort = 'releaseYear,desc',
+    genreId?: number,
+  ): Observable<PageResponse<Movie>> {
     return this.http.get<PageResponse<Movie>>(this.api, {
       params: {
         page,
         size,
+        sort,
+        ...(genreId !== undefined && { genreId }),
       },
     });
   }
@@ -26,13 +34,29 @@ export class MovieService {
     return this.http.get<Movie>(`${this.api}/${id}`);
   }
 
-    searchByTitle(title: string, page = 0, size = 8): Observable<PageResponse<Movie>> {
+  searchByTitle(
+    title: string,
+    page = 0,
+    size = 8,
+    sort = 'releaseYear,desc',
+    genreId?: number,
+  ): Observable<PageResponse<Movie>> {
     return this.http.get<PageResponse<Movie>>(this.api, {
       params: {
         title,
         page,
         size,
+        sort,
+        ...(genreId !== undefined && { genreId }),
       },
     });
+  }
+
+  update(id: number, request: MovieUpdateRequest): Observable<Movie> {
+    return this.http.put<Movie>(`${this.api}/${id}`, request);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
   }
 }

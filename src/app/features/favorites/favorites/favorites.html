@@ -1,9 +1,23 @@
-<section class="p-8 bg-zinc-950 min-h-screen">
-  <h1 class="text-3xl text-white font-bold mb-8">Mis Favoritos ❤️</h1>
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <p class="font-mono text-xs tracking-[0.3em] text-amber">TU SELECCIÓN</p>
+  <h1 class="mt-3 font-display text-4xl text-screen sm:text-5xl">MIS FAVORITOS</h1>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    @for (movie of movies(); track movie.id) {
-      <app-movie-card [movie]="movie"> </app-movie-card>
-    }
-  </div>
+  @if (movies().length > 0) {
+    <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      @for (movie of movies(); track movie.id) {
+        <app-movie-card [movie]="movie" />
+      }
+    </div>
+  } @else {
+    <div class="mt-14 border border-dashed border-halo/50 px-6 py-20 text-center">
+      <p class="font-mono text-sm tracking-[0.25em] text-grain">AÚN NO HAY FAVORITOS</p>
+      <p class="mt-3 text-grain">Explora el catálogo y guarda las películas que no quieras perderte.</p>
+      <a
+        routerLink="/movies"
+        class="mt-6 inline-block rounded-none bg-amber px-8 py-3 font-mono text-xs font-bold tracking-widest text-theater transition-colors hover:bg-amber-soft"
+      >
+        EXPLORAR CATÁLOGO
+      </a>
+    </div>
+  }
 </section>

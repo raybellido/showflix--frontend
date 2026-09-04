@@ -9,5 +9,6 @@
   imageUrl: string;
   trailerUrl: string;
   rating: number;
+  genreId: number;
 
-}
+} 
