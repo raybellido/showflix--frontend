@@ -1,59 +1,90 @@
-# ShowflixFrontend
+# 🎬 Showflix Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.17.
+Plataforma de streaming con catálogo de películas, autenticación por roles (JWT), favoritos y panel de administración completo (CRUD de películas y usuarios con soft delete).
 
-## Development server
+**Demo en vivo:** https://showflix-3n9.pages.dev
 
-To start a local development server, run:
+> La demo corre **sin backend** usando un **interceptor mock**: toda la funcionalidad (login admin, catálogo, favoritos, panel de administración) funciona con datos de ejemplo para que puedas probarla al instante.
+
+---
+🔑 Credenciales de la demo
+
+| Rol | Email | Contraseña |
+|---|---|---|
+| **Admin** | `admin@email.com` | cualquier clave |
+| **Usuario** | `maria@email.com` | cualquier clave |
+
+Con el email de admin obtienes `ROLE_ADMIN` y acceso al dashboard.
+
+---
+
+## ✨ Features
+
+- 🎞️ **Catálogo de películas** con búsqueda por título, filtro por género y ordenamiento.
+- 👑 **Autenticación JWT** con roles `USER` y `ADMIN` (login + registro).
+- ❤️ **Favoritos** por usuario (agregar / quitar).
+- 🛠️ **Panel de administración** protegido por guards:
+  - CRUD de películas (listado, edición, soft delete con modal de confirmación).
+  - Gestión de usuarios (listado paginado, filtro por estado, soft delete y restauración).
+- 🔒 **Guards de ruta**: `authGuard` para áreas privadas, `adminGuard` para el panel.
+- 📱 **Responsive** con menú móvil.
+- 🧪 **Modo demo**: interceptor HTTP que simula la API cuando no hay backend disponible.
+
+---
+
+## 🛠️ Stack
+
+| Capa | Tecnología |
+|---|---|
+| Frontend | **Angular 21** (standalone components, signals) |
+| Estilos | **Tailwind CSS v4** (tema cinema custom) |
+| Backend | **Spring boot** (jwt,rol,crud,validadores,API REST) |
+| Deploy | Cloudflare Pages (CI: build automático en cada push) |
+
+---
+
+## 📸 Screenshots
+
+*(Agrega aquí capturas: home, catálogo, detalle, panel admin users/movies)*
+
+| | |
+|---|---|
+| Home | Catálogo |
+| Detalle película | Admin usuarios |
+
+---
+
+## 🚀 Correr en local
+
+### Requisitos
+- Node.js 20+
+- npm
+
+### Con backend real (desarrollo)
 
 ```bash
-ng serve
+npm install
+npm run start        # http://localhost:4200
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+El backend debe estar corriendo en `http://localhost:8080/api/v1` (Spring Boot). En `localhost` la app **siempre** usa la API real; el mock solo se activa en dominios desplegados.
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+src/
+├── app/
+│   ├── core/                 # guards, interceptors, services, mocks
+│   ├── features/             # páginas por dominio: auth, home, movies, admin, favorites
+│   ├── layouts/              # MainLayout (navbar + footer)
+│   ├── shared/               # componentes y modelos compartidos
+│   └── app.routes.ts         # rutas (admin protegido por adminGuard)
+└── enviroment.ts             # config: apiUrl + mockApi
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🏗️ Arquitectura destacada
 
-```bash
-ng generate --help
-```
+- **Signals** para estado reactivo (listas, paginación, filtros, modales).
+- **Interceptores funcionales** para auth (`Bearer token`) y manejo de errores `401`.
+- **Guards canActivate** para proteger rutas por autenticación y rol.
+- **Soft delete** de usuarios y películas con modal de confirmación.
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
