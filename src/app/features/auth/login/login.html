@@ -9,9 +9,10 @@
   </header>
 
   <main class="relative flex grow items-center justify-center px-4 py-10">
-    <div class="w-full max-w-md border border-halo/50 bg-ticket/70 p-8 backdrop-blur-sm sm:p-10">
-      <p class="font-mono text-xs tracking-[0.3em] text-amber">SALA DE MIEMBROS</p>
-      <h1 class="mt-3 font-display text-3xl text-screen">INICIAR SESIÓN</h1>
+    <div class="flex w-full max-w-md flex-col gap-6">
+      <div class="border border-halo/50 bg-ticket/70 p-8 backdrop-blur-sm sm:p-10">
+        <p class="font-mono text-xs tracking-[0.3em] text-amber">SALA DE MIEMBROS</p>
+        <h1 class="mt-3 font-display text-3xl text-screen">INICIAR SESIÓN</h1>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-5">
         @if (loginError()) {
@@ -57,6 +58,43 @@
         ¿Primera vez en Showflix?
         <a routerLink="/register" class="font-mono text-xs tracking-widest text-amber hover:underline">SUSCRÍBETE</a>.
       </p>
+      </div>
+
+      @if (mockApi) {
+        <div class="border border-amber/40 bg-ticket/70 p-6 backdrop-blur-sm">
+          <p class="font-mono text-xs tracking-[0.3em] text-amber">MODO DEMO · SIN BACKEND</p>
+
+          <p class="mt-2 text-sm text-grain">
+            Entra al instante tocando una de estas cuentas:
+          </p>
+
+          <button
+            type="button"
+            (click)="fillDemo('admin')"
+            class="mt-4 w-full border border-halo/50 bg-theater p-4 text-left transition-colors hover:border-amber"
+          >
+            <p class="font-display text-lg text-amber">ADMIN</p>
+            <p class="mt-1 font-mono text-xs text-screen">admin@email.com</p>
+            <p class="mt-1 font-mono text-xs text-grain">cualquier clave · dashboard completo</p>
+          </button>
+
+          <button
+            type="button"
+            (click)="fillDemo('user')"
+            class="mt-3 w-full border border-halo/50 bg-theater p-4 text-left transition-colors hover:border-amber"
+          >
+            <p class="font-display text-lg text-screen">USUARIO</p>
+            <p class="mt-1 font-mono text-xs text-grain">maria@email.com</p>
+            <p class="mt-1 font-mono text-xs text-grain">cualquier clave · catálogo y favoritos</p>
+          </button>
+
+          @if (applied()) {
+            <p class="mt-3 border border-amber/40 bg-amber/10 px-3 py-2 font-mono text-xs tracking-widest text-amber">
+              ✓ CAMPOS COMPLETADOS · PRESIONA "ENTRAR A LA SALA"
+            </p>
+          }
+        </div>
+      }
     </div>
   </main>
 
